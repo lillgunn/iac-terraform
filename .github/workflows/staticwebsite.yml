@@ -11,6 +11,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      action_type:
+        description: 'What action to take (apply or destroy)'
+        required: true
+        default: 'apply'
+        type: choice
+        options:
+          - 'apply'
+          - 'destroy'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,7 +50,19 @@ jobs:
       - name: 'Terraform plan'
         id: plan
         run: terraform plan
+        working-directory: ${{ env.WORKING_DIR }}
+
+      - name: 'Terraform apply'
+        if: github.event.inputs.action_type == 'apply'
+        id: apply
+        run: terraform apply -auto-approve
         working-directory: ${{ env.WORKING_DIR }} 
+
+      - name: 'Terraform destroy'
+        if: github.event.inputs.action_type == 'destroy'
+        id: destroy
+        run: terraform destroy -auto-approve
+        working-directory: ${{ env.WORKING_DIR }}
                     
       - name: 'Check last commit message'
         id: commit
