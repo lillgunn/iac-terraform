@@ -1,22 +1,22 @@
-# This is a basic workflow to help validate your Terraform configuration
+# This is a basic workflow to help you get started with Actions
 
-name: Validate Infrastructure
+name: validate2
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     paths:
-      - '/module08/demo-infra/**'
+      - 'module08/demo-infra/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "validate"
+  # This workflow contains a single job called "web"
   terraform:
-    name: 'Validate'
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
     
+    name: 'validate2'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -33,9 +33,10 @@ jobs:
       - name: 'Terraform init'
         id: init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}          
+        working-directory: ${{ env.WORKING_DIR }}   
 
       - name: 'Terraform validate'
         id: validate
         run: terraform validate
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }} 
+
