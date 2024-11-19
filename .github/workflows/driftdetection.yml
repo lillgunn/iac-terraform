@@ -22,7 +22,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}  # Azure client secret from GitHub Secrets
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Azure subscription ID from GitHub Secrets
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}  # Azure tenant ID from GitHub Secrets
-      WORKING_DIR: ./course materials/module10/drift-detection  # Directory where Terraform files are stored
+      WORKING_DIR: ./module10/remotestate/network # Directory where Terraform files are stored
 
     steps:
       # Step 1: Checkout code
