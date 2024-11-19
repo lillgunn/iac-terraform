@@ -24,3 +24,9 @@ resource "azurerm_resource_group" "rg_b" {
   name     = var.resource_group_name
   location = var.location
 }
+module "storage" {
+  source               = "../modules/storage"
+  storage_account_name = var.storage_account_name
+  resource_group_name  = azurerm_resource_group.rg_b.name
+  location             = azurerm_resource_group.rg_b.location
+}
